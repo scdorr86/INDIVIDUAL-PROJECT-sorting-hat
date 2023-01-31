@@ -1,0 +1,19 @@
+.card-header, .card-body {
+  text-align: center;
+}
+#add-inpt, #add-student-input, #button-row{
+  display: flex;
+  justify-content: center;
+}
+#filter-row {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.get-started-container {
+  display: none;
+}
+.unhide {
+  display: flex;
+  flex-direction: column;
+}
