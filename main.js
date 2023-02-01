@@ -125,15 +125,28 @@ function test () {
 
   students.push(newStudentObj);
 
-  const nonExpel = students.map((index) => {
+  /*const nonExpel = students.map((index) => {
       if (!index.expelled) {
         return {...index, house: houses[index.house]};
       }
-  })
+  })*/
 
-  renderSort(nonExpel)
-  console.log(nonExpel)
+  //renderSort(nonExpel)
+  console.log(students)
   formEl.reset()
+}
+
+const nonExpel = students.map((index) => {
+    if (!index.expelled) {
+      return {...index, house: houses[index.house]};
+    }
+})
+
+
+
+//Filter Button Row
+function griff () {
+
 }
 
 function toggleAdd () {
@@ -144,5 +157,6 @@ startBTN.addEventListener("click", toggleAdd)
 sortBtn.addEventListener("click", () => {
   //newStudent
   test()
+  console.log(nonExpel)
   //renderSort(students)
 })
