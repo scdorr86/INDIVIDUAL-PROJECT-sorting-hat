@@ -36,6 +36,7 @@
   display: flex;
   flex-wrap: wrap;
   border: 1px solid gold;
+  justify-content: space-evenly;
 }
 .card {
   margin: 2px 2px;

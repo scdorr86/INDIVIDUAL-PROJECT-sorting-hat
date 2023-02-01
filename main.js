@@ -1,17 +1,18 @@
 console.log("test setup")
 
 //dataset
-const students = []
-const houses = {1:"Gryffndor", 2:"Hufflepuff", 3:"Ravenclaw", 4:"Slytherin"}
+const students = [];
+const houses = {1:"Gryffndor", 2:"Hufflepuff", 3:"Ravenclaw", 4:"Slytherin"};
 let nonExpelledStudents = [];
+let expelArray = [];
 
 //get elements from DOM
-const startBTN = document.querySelector("#startBtn")
-const formDiv = document.querySelector("#get-started-form")
-const filterDiv = document.getElementById('filter-row')
-const addSection = document.querySelector(".get-started-container")
-const sortBtn = document.querySelector("#sortBtn")
-const formEl = document.querySelector("#add-student-input")
+const startBTN = document.querySelector("#startBtn");
+const formDiv = document.querySelector("#get-started-form");
+const filterDiv = document.getElementById('filter-row');
+const addSection = document.querySelector(".get-started-container");
+const sortBtn = document.querySelector("#sortBtn");
+const formEl = document.querySelector("#add-student-input");
 
 /*render form and filter to DOM with start button
 function renderForm () {
@@ -59,7 +60,7 @@ function renderSort(array) {
       <button class="btn btn-outline-danger" id="expel--${studentIndex.studentId}">Expel</button>
     </div>
   </div>`
-  })
+  });
     
 cardRender.innerHTML = cardHtml;
 }
@@ -78,7 +79,7 @@ function renderArmy(array) {
       <button class="btn btn-outline-danger" id="expel--${studentIndex.studentId}">Expel</button>
     </div>
   </div>`
-  })
+  });
     
 expelRender.innerHTML = expelHtml;
 }
@@ -86,7 +87,7 @@ expelRender.innerHTML = expelHtml;
 //random number generator for house selection
 function randomNum() {
   return Math.floor(Math.random() * (5 - 1) ) + 1;
-}
+};
 
 console.log(randomNum())
 
@@ -130,14 +131,13 @@ const newStudent = (event) => {
 }*/
 
 function addRender () {
-  console.log("muliple function click test")
-  
+
   const newStudentObj = {
     name: document.querySelector("#nameInput").value,
     house: randomNum(),
     studentId: students.length + 1,
     expelled: false
-  }
+  };
 
   students.push(newStudentObj);
 
@@ -145,63 +145,62 @@ function addRender () {
       if (!index.expelled) {
         return {...index, house: houses[index.house]};
       }
-  })
+  });
 
-  renderSort(nonExpelledStudents)
-  console.log(students)
-  formEl.reset()
+  renderSort(nonExpelledStudents);
+  console.log(students);
+  formEl.reset();
 }
 
 //Filter Button Row
 function griff () {
-  let grifFilter = nonExpelledStudents.filter(index => index.house === "Gryffndor")
-  console.log("grif click")
-  renderSort(grifFilter)
+  let grifFilter = nonExpelledStudents.filter(index => index.house === "Gryffndor");
+  renderSort(grifFilter);
 }
 
 function huff () {
-  const hufFilter = nonExpelledStudents.filter(index => index.house === "Hufflepuff")
-  renderSort(hufFilter)
+  const hufFilter = nonExpelledStudents.filter(index => index.house === "Hufflepuff");
+  renderSort(hufFilter);
 }
 
 function raven () {
-  const ravenFilter = nonExpelledStudents.filter(index => index.house === "Ravenclaw")
-  renderSort(ravenFilter)
+  const ravenFilter = nonExpelledStudents.filter(index => index.house === "Ravenclaw");
+  renderSort(ravenFilter);
 }
 
 function slyth () {
-  const slythFilter = nonExpelledStudents.filter(index => index.house === "Slytherin")
-  renderSort(slythFilter)
+  const slythFilter = nonExpelledStudents.filter(index => index.house === "Slytherin");
+  renderSort(slythFilter);
 }
 
 function All () {
-  renderSort(nonExpelledStudents)
+  renderSort(nonExpelledStudents);
 }
 //Link filter buttons to functions
-const grifbtn = document.querySelector("#grifbtn")
-const allbtn = document.querySelector("#allbtn")
-const huffbtn = document.querySelector("#huffbtn")
-const ravbtn = document.querySelector("#ravbtn")
-const slybtn = document.querySelector("#slybtn")
-const studentContainer = document.querySelector("#cards-div")
-grifbtn.addEventListener("click", griff)
-allbtn.addEventListener("click", All)
-huffbtn.addEventListener("click", huff)
-ravbtn.addEventListener("click", raven)
-slybtn.addEventListener("click", slyth)
+const grifbtn = document.querySelector("#grifbtn");
+const allbtn = document.querySelector("#allbtn");
+const huffbtn = document.querySelector("#huffbtn");
+const ravbtn = document.querySelector("#ravbtn");
+const slybtn = document.querySelector("#slybtn");
+const studentContainer = document.querySelector("#cards-div");
+grifbtn.addEventListener("click", griff);
+allbtn.addEventListener("click", All);
+huffbtn.addEventListener("click", huff);
+ravbtn.addEventListener("click", raven);
+slybtn.addEventListener("click", slyth);
 
 //toggle filter menu
 function toggleAdd () {
-  addSection.classList.toggle("unhide")
+  addSection.classList.toggle("unhide");
 }
 //link render functions to start button click event
-startBTN.addEventListener("click", toggleAdd)
+startBTN.addEventListener("click", toggleAdd);
 sortBtn.addEventListener("click", () => {
   //newStudent
   addRender()
   console.log(nonExpelledStudents)
   //renderSort(students)
-})
+});
 studentContainer.addEventListener("click", (event) => {
   if (event.target.id.includes("expel")) {
     console.log("would be expelled")
@@ -209,13 +208,14 @@ studentContainer.addEventListener("click", (event) => {
     const indexOfStudent = nonExpelledStudents.findIndex (
       (obj) => obj.studentId === Number(id)
       );
-      console.log(indexOfStudent)
-      console.log(nonExpelledStudents)
+      console.log(indexOfStudent);
+      console.log(nonExpelledStudents);
       console.log(id);
-    const expelArray = [nonExpelledStudents[indexOfStudent]]
-    console.log(expelArray)
-    renderArmy(expelArray)
-    nonExpelledStudents.splice(indexOfStudent, 1)
-    renderSort(nonExpelledStudents)  
+    expelArray.push(nonExpelledStudents[indexOfStudent])
+    console.log(expelArray);
+    renderArmy(expelArray);
+    nonExpelledStudents.splice(indexOfStudent, 1);
+    console.log(nonExpelledStudents);
+    renderSort(nonExpelledStudents) ; 
   }
-})
+});
