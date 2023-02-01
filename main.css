@@ -1,7 +1,7 @@
 .card-header, .card-body {
   text-align: center;
 }
-#add-inpt, #add-student-input, #button-row{
+#add-inpt, #add-student-input{
   display: flex;
   justify-content: center;
 }
@@ -16,6 +16,8 @@
 .unhide {
   display: flex;
   flex-direction: column;
+  border: 1px solid brown;
+  width: 100%;
 }
 #Cards-container {
   display: flex;
@@ -24,17 +26,25 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  margin: 2px 2px;
-  width: 40%;
+  margin: 5px 5px;
+  width: 50%;
   border: 1px solid blue;
 }
 #expel-div {
-  width: 40%;
+  width: 50%;
+  margin: 5px 5px;
   display: flex;
   flex-wrap: wrap;
   border: 1px solid gold;
 }
 .card {
-  margin: 3px 3px;
-  flex-basis: 15%;
+  margin: 2px 2px;
+  flex-basis: 25%;
+}
+#button-row {
+  display: flex;
+  width: 100%;
+}
+#allbtn, #grifbtn, #huffbtn, #ravbtn, #slybtn {
+  flex-basis: 20%;
 }

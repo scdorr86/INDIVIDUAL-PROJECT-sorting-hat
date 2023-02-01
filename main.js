@@ -3,11 +3,7 @@ console.log("test setup")
 //dataset
 const students = []
 const houses = {1:"Gryffndor", 2:"Hufflepuff", 3:"Ravenclaw", 4:"Slytherin"}
-
-const studentIds = students.map(student => student.id).sort((a, b) => a - b);
-const id = studentIds.length ? studentIds[(studentIds.length - 1)] + 1 : 1;
-
-
+let nonExpelledStudents = [];
 
 //get elements from DOM
 const startBTN = document.querySelector("#startBtn")
@@ -60,12 +56,31 @@ function renderSort(array) {
     <div class="card-body">
       <h2 class="card-name">${studentIndex.name}</h2>
       <h3>${studentIndex.house}</h3>
-      <button class="btn btn-outline-danger" id="delete--${studentIndex.id}">Expel</button>
+      <button class="btn btn-outline-danger" id="expel--${studentIndex.studentId}">Expel</button>
     </div>
   </div>`
   })
     
 cardRender.innerHTML = cardHtml;
+}
+function renderArmy(array) {
+    
+  const expelRender = document.querySelector("#expel-div");
+  let expelHtml = "<h1>He Who Must not be Named's Army</h1>";
+
+  array.forEach ((studentIndex) => {
+    expelHtml +=
+    `<div class="card" style="width: 18rem;">
+    <div class="house-color card-img-top"></div> 
+    <div class="card-body">
+      <h2 class="card-name">${studentIndex.name}</h2>
+      <h3>${studentIndex.house}</h3>
+      <button class="btn btn-outline-danger" id="expel--${studentIndex.studentId}">Expel</button>
+    </div>
+  </div>`
+  })
+    
+expelRender.innerHTML = expelHtml;
 }
 
 //random number generator for house selection
@@ -114,41 +129,68 @@ const newStudent = (event) => {
   }
 }*/
 
-function test () {
+function addRender () {
   console.log("muliple function click test")
+  
   const newStudentObj = {
     name: document.querySelector("#nameInput").value,
     house: randomNum(),
-    studentId: students.length +1,
+    studentId: students.length + 1,
     expelled: false
   }
 
   students.push(newStudentObj);
 
-  /*const nonExpel = students.map((index) => {
+  nonExpelledStudents = students.map((index) => {
       if (!index.expelled) {
         return {...index, house: houses[index.house]};
       }
-  })*/
+  })
 
-  //renderSort(nonExpel)
+  renderSort(nonExpelledStudents)
   console.log(students)
   formEl.reset()
 }
 
-const nonExpel = students.map((index) => {
-    if (!index.expelled) {
-      return {...index, house: houses[index.house]};
-    }
-})
-
-
-
 //Filter Button Row
 function griff () {
-
+  let grifFilter = nonExpelledStudents.filter(index => index.house === "Gryffndor")
+  console.log("grif click")
+  renderSort(grifFilter)
 }
 
+function huff () {
+  const hufFilter = nonExpelledStudents.filter(index => index.house === "Hufflepuff")
+  renderSort(hufFilter)
+}
+
+function raven () {
+  const ravenFilter = nonExpelledStudents.filter(index => index.house === "Ravenclaw")
+  renderSort(ravenFilter)
+}
+
+function slyth () {
+  const slythFilter = nonExpelledStudents.filter(index => index.house === "Slytherin")
+  renderSort(slythFilter)
+}
+
+function All () {
+  renderSort(nonExpelledStudents)
+}
+//Link filter buttons to functions
+const grifbtn = document.querySelector("#grifbtn")
+const allbtn = document.querySelector("#allbtn")
+const huffbtn = document.querySelector("#huffbtn")
+const ravbtn = document.querySelector("#ravbtn")
+const slybtn = document.querySelector("#slybtn")
+const studentContainer = document.querySelector("#cards-div")
+grifbtn.addEventListener("click", griff)
+allbtn.addEventListener("click", All)
+huffbtn.addEventListener("click", huff)
+ravbtn.addEventListener("click", raven)
+slybtn.addEventListener("click", slyth)
+
+//toggle filter menu
 function toggleAdd () {
   addSection.classList.toggle("unhide")
 }
@@ -156,7 +198,24 @@ function toggleAdd () {
 startBTN.addEventListener("click", toggleAdd)
 sortBtn.addEventListener("click", () => {
   //newStudent
-  test()
-  console.log(nonExpel)
+  addRender()
+  console.log(nonExpelledStudents)
   //renderSort(students)
+})
+studentContainer.addEventListener("click", (event) => {
+  if (event.target.id.includes("expel")) {
+    console.log("would be expelled")
+    const [, id] = event.target.id.split("--");
+    const indexOfStudent = nonExpelledStudents.findIndex (
+      (obj) => obj.studentId === Number(id)
+      );
+      console.log(indexOfStudent)
+      console.log(nonExpelledStudents)
+      console.log(id);
+    const expelArray = [nonExpelledStudents[indexOfStudent]]
+    console.log(expelArray)
+    renderArmy(expelArray)
+    nonExpelledStudents.splice(indexOfStudent, 1)
+    renderSort(nonExpelledStudents)  
+  }
 })
