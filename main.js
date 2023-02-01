@@ -1,15 +1,13 @@
 console.log("test setup")
 
 //dataset
-const students = [
-  {
-    name: "Test",
-    house: "ravenclaw",
-    studentId: ""
-  }
-]
+const students = []
+const houses = {1:"Gryffndor", 2:"Hufflepuff", 3:"Ravenclaw", 4:"Slytherin"}
+
 const studentIds = students.map(student => student.id).sort((a, b) => a - b);
 const id = studentIds.length ? studentIds[(studentIds.length - 1)] + 1 : 1;
+
+
 
 //get elements from DOM
 const startBTN = document.querySelector("#startBtn")
@@ -58,31 +56,83 @@ function renderSort(array) {
   array.forEach ((studentIndex) => {
     cardHtml +=
     `<div class="card" style="width: 18rem;">
-    <div class="house-color"></div> 
+    <div class="house-color card-img-top"></div> 
     <div class="card-body">
       <h2 class="card-name">${studentIndex.name}</h2>
       <h3>${studentIndex.house}</h3>
       <button class="btn btn-outline-danger" id="delete--${studentIndex.id}">Expel</button>
     </div>
-  </div$>`
+  </div>`
   })
     
 cardRender.innerHTML = cardHtml;
 }
 
+//random number generator for house selection
+function randomNum() {
+  return Math.floor(Math.random() * (5 - 1) ) + 1;
+}
+
+console.log(randomNum())
+
+//assign house to random number
+/*function house () {
+  students.forEach((index) => {
+    if (index.house === 1){ 
+      index.house = "Gryffndor"
+    } else if (index.house === 2) {
+      index.house = "Hufflepuff"
+    } else if (index.house === 3) {
+      index.house = "Ravenclaw"
+    } else if (index.house === 4) {
+      index.house = "Slytherin"
+    } else {
+      index.house = "Gryffndor"
+    }
+  })
+}
+
 //add student to students array
-const newStudent = (e) => {
-  e.preventDefault();
+const newStudent = (event) => {
+  if (event.target.id.includes("sortBtn")) {
+  console.log("test newStudent")
+  event.preventDefault();
 
   const newStudentObj = {
-    name: document.querySelector("nameInput"),
-    house: "griff",
-    id: students.length +1
+    name: document.querySelector("#nameInput"),
+    house: randomNum(),
+    studentId: students.length +1
   }
 
   students.push(newStudentObj);
 
+  house()
+
   renderSort(students)
+  formEl.reset()
+  console.log(students)
+  }
+}*/
+
+function test () {
+  console.log("muliple function click test")
+  const newStudentObj = {
+    name: document.querySelector("#nameInput").value,
+    house: randomNum(),
+    studentId: students.length +1,
+    expelled: false
+  }
+
+  students.push(newStudentObj);
+
+  const nonExpel = students.map((index) => {
+      if (!index.expelled) {
+        return {...index, house: houses[index.house]};
+      }
+  })
+
+  renderSort(nonExpel)
+  console.log(nonExpel)
   formEl.reset()
 }
 
@@ -91,4 +141,8 @@ function toggleAdd () {
 }
 //link render functions to start button click event
 startBTN.addEventListener("click", toggleAdd)
-sortBtn.addEventListener("click", () => {renderSort(students)})
+sortBtn.addEventListener("click", () => {
+  //newStudent
+  test()
+  //renderSort(students)
+})
