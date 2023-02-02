@@ -1,3 +1,6 @@
+#header-div {
+  margin-bottom: 20px;
+}
 .card-header, .card-body {
   text-align: center;
 }
@@ -9,6 +12,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 2px;
 }
 .get-started-container {
   display: none;
@@ -16,8 +20,9 @@
 .unhide {
   display: flex;
   flex-direction: column;
-  border: 1px solid brown;
   width: 100%;
+  margin-bottom: 2px;
+  text-align: center;
 }
 #Cards-container {
   display: flex;
@@ -28,14 +33,19 @@
   justify-content: space-evenly;
   margin: 5px 5px;
   width: 50%;
-  border: 1px solid blue;
+  border: 1px darkorange solid;
+ 
 }
 #expel-div {
   width: 50%;
   margin: 5px 5px;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid gold;
+  border-width: 1px;
+  border-radius: .375rem;
+  border-color: rgba(0, 0, 0, 0.175);
+  font-style: italic;
+  color: dimgrey; 
   justify-content: space-evenly;
 }
 .card {
@@ -48,4 +58,28 @@
 }
 #allbtn, #grifbtn, #huffbtn, #ravbtn, #slybtn {
   flex-basis: 20%;
+}
+.product {
+  max-height: 325px;
+  max-width: 275px;
+}
+.unhide h3 {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+label {
+  padding-right: 5px;
+  margin-top: 5px;
+}
+input {
+  margin-right: 5px;
+}
+#sortBtn {
+  height: 38px;
+}
+#add-container {
+  background-color: white;
+}
+#startBtn {
+  margin-bottom: 5px;
 }
