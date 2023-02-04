@@ -86,3 +86,6 @@ input {
 #startBtn {
   margin-bottom: 5px;
 }
+img {
+  max-height: 165px;
+}
