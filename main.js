@@ -71,16 +71,15 @@ function addRender () {
 
   students.push(newStudentObj);
 
-  nonExpelledStudents = students.filter((index) => index.expelled === false)
-  console.log('filtered', nonExpelledStudents)
+  console.log(nonExpelledStudents)
+  console.log(students)
 
-  nonExpelledStudents = nonExpelledStudents.map((index) => {
+  nonExpelledStudents = students.map((index) => {
       if (!index.expelled) {
         return {...index, house: houses[index.house]};
       }
   });
-
-console.log('after map', nonExpelledStudents)
+  console.log(nonExpelledStudents)
 
   for (let i = 0; i < nonExpelledStudents.length; i++) {
     if (nonExpelledStudents[i].house === "Gryffindor") {
@@ -95,6 +94,9 @@ console.log('after map', nonExpelledStudents)
   }
 
   renderSort(nonExpelledStudents);
+  
+  console.log(nonExpelledStudents)
+  console.log(students)
   
   formEl.reset();
 }
@@ -159,24 +161,22 @@ studentContainer.addEventListener("click", (event) => {
     console.log(indexOfStudent);
     console.log(nonExpelledStudents);
     console.log(id);
-    console.log(students)
-
-    var student = students.find(item => item.studentId == id)
-    console.log(student)
-
-    student.house = "EXEPLLED MINION"
-    student.imageUrl = "https://upload.wikimedia.org/wikipedia/en/a/a3/Lordvoldemort.jpg" 
-    student.expelled = true;
+    nonExpelledStudents[indexOfStudent].house = "EXEPLLED MINION"
+    nonExpelledStudents[indexOfStudent].imageUrl = "https://upload.wikimedia.org/wikipedia/en/a/a3/Lordvoldemort.jpg" 
+    nonExpelledStudents[indexOfStudent].expelled = true;
+    students[indexOfStudent].expelled = true; 
     expelArray.push(nonExpelledStudents[indexOfStudent])
     console.log(expelArray);
 
     renderArmy(expelArray);
 
-    nonExpelledStudents.filter(index => index.expelled === false );
+    //nonExpelledStudents = nonExpelledStudents.filter(index => index.expelled === false)  
+    nonExpelledStudents.splice(indexOfStudent, 1);
+    students.splice(indexOfStudent, 1);
     console.log(nonExpelledStudents);
     console.log(students); 
 
-    renderSort(students.filter(index => index.expelled === false )); 
+    renderSort(nonExpelledStudents); 
   }
 });
 
