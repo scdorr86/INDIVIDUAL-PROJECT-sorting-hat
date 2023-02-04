@@ -9,6 +9,7 @@ const startBTN = document.querySelector("#startBtn");
 const formDiv = document.querySelector("#get-started-form");
 const filterDiv = document.getElementById('filter-row');
 const addSection = document.querySelector(".get-started-container");
+const cardSection = document.querySelector(".cards-display-container")
 const sortBtn = document.querySelector("#sortBtn");
 const formEl = document.querySelector("#add-student-input");
 
@@ -20,14 +21,14 @@ function renderSort(array) {
 
   array.forEach ((studentIndex) => {
     cardHtml +=
-    `<div class="card product" style="width: 18rem;">
-    <img src=${studentIndex.imageUrl} class="card-img-top" alt="..."> 
-    <div class="card-body">
-      <h3 class="card-name">${studentIndex.name}</h3>
-      <h5>${studentIndex.house}</h5>
-      <button class="btn btn-outline-danger" id="expel--${studentIndex.studentId}">Expel</button>
-    </div>
-  </div>`
+      `<div class="card product" style="width: 18rem;">
+      <img src=${studentIndex.imageUrl} class="card-img-top" alt="..."> 
+      <div class="card-body">
+        <h3 class="card-name">${studentIndex.name}</h3>
+        <h5>${studentIndex.house}</h5>
+        <button class="btn btn-outline-danger" id="expel--${studentIndex.studentId}">Expel</button>
+      </div>
+    </div>`
   });
     
 cardRender.innerHTML = cardHtml;
@@ -39,14 +40,14 @@ function renderArmy(array) {
 
   array.forEach ((studentIndex) => {
     expelHtml +=
-    `<div class="card product" style="width: 18rem;">
-    <img src=${studentIndex.imageUrl} class="card-img-top" alt="..."> 
-    <div class="card-body">
-      <h3 class="card-name">${studentIndex.name}</h3>
-      <h5>${studentIndex.house}</h5>
-      <button class="btn btn-outline-danger" id="expel--${studentIndex.studentId}">Rehouse</button>
-    </div>
-  </div>`
+      `<div class="card product" style="width: 18rem;">
+      <img src=${studentIndex.imageUrl} class="card-img-top" alt="..."> 
+      <div class="card-body">
+        <h3 class="card-name">${studentIndex.name}</h3>
+        <h5>${studentIndex.house}</h5>
+        <button class="btn btn-outline-danger" id="rehouse--${studentIndex.studentId}">Rehouse</button>
+      </div>
+    </div>`
   });
     
 expelRender.innerHTML = expelHtml;
@@ -63,7 +64,7 @@ function addRender () {
   const newStudentObj = {
     name: document.querySelector("#nameInput").value,
     house: randomNum(),
-    studentId: nonExpelledStudents.length + 1,
+    studentId: students.length + 1,
     expelled: false,
     imageUrl: ""
   };
@@ -78,22 +79,18 @@ function addRender () {
 
   for (let i = 0; i < nonExpelledStudents.length; i++) {
     if (nonExpelledStudents[i].house === "Gryffindor") {
-      console.log("house griff")
       nonExpelledStudents[i].imageUrl = "https://cdn.shopify.com/s/files/1/1742/2597/products/Gryffindor_Crest_Harry_Potter_JK_Rowling_200x200.jpg?v=1498517435"
     } else if (nonExpelledStudents[i].house === "Hufflepuff") {
-        console.log("house huff")
-        nonExpelledStudents[i].imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrJg-Phmi7_vAbHtwKksDlaHiAMBynv0nsRz9ZL-Kj7nMVasIMyg02F_BkP1T-djleawA&usqp=CAU"
+      nonExpelledStudents[i].imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrJg-Phmi7_vAbHtwKksDlaHiAMBynv0nsRz9ZL-Kj7nMVasIMyg02F_BkP1T-djleawA&usqp=CAU"
     } else if (nonExpelledStudents[i].house === "Ravenclaw") {
-      console.log("house raven")
       nonExpelledStudents[i].imageUrl = "https://qph.cf2.quoracdn.net/main-thumb-697960226-200-eemyzihzgvqcufewyfcszclopjlpxban.jpeg"
     } else if (nonExpelledStudents[i].house === "Slytherin") {
-      console.log("house sly")
       nonExpelledStudents[i].imageUrl = "https://www.topironons.com/image/cache/catalog/product/slytherin-harry-potter-t-shirt-iron-on-transfer-decal-3-2118-200x200.jpg"
     }
   }
 
   renderSort(nonExpelledStudents);
-  console.log(students);
+  
   formEl.reset();
 }
 
@@ -129,6 +126,7 @@ const huffbtn = document.querySelector("#huffbtn");
 const ravbtn = document.querySelector("#ravbtn");
 const slybtn = document.querySelector("#slybtn");
 const studentContainer = document.querySelector("#cards-div");
+const armyContainer = document.querySelector("#expel-div");
 grifbtn.addEventListener("click", griff);
 allbtn.addEventListener("click", All);
 huffbtn.addEventListener("click", huff);
@@ -138,6 +136,7 @@ slybtn.addEventListener("click", slyth);
 //toggle filter menu
 function toggleAdd () {
   addSection.classList.toggle("unhide");
+  //cardSection.classList.toggle(".unhide2");
 }
 
 //link render functions to start button click event
@@ -152,20 +151,29 @@ studentContainer.addEventListener("click", (event) => {
       (obj) => obj.studentId === Number(id)
       );
 
-      console.log(indexOfStudent);
-      console.log(nonExpelledStudents);
-      console.log(id);
-      nonExpelledStudents[indexOfStudent].house = "EXEPLLED MINION"
-      nonExpelledStudents[indexOfStudent].imageUrl = "https://upload.wikimedia.org/wikipedia/en/a/a3/Lordvoldemort.jpg"
-      nonExpelledStudents[indexOfStudent].studentId = expelArray.length + 1  
-      expelArray.push(nonExpelledStudents[indexOfStudent])
-      console.log(expelArray);
+    console.log(indexOfStudent);
+    console.log(nonExpelledStudents);
+    console.log(id);
+    nonExpelledStudents[indexOfStudent].house = "EXEPLLED MINION"
+    nonExpelledStudents[indexOfStudent].imageUrl = "https://upload.wikimedia.org/wikipedia/en/a/a3/Lordvoldemort.jpg" 
+    nonExpelledStudents[indexOfStudent].expelled = true;
+    students[indexOfStudent].expelled = true; 
+    expelArray.push(nonExpelledStudents[indexOfStudent])
+    console.log(expelArray);
 
-      renderArmy(expelArray);
+    renderArmy(expelArray);
 
-      nonExpelledStudents.splice(indexOfStudent, 1);
-      console.log(nonExpelledStudents);
+    nonExpelledStudents.splice(indexOfStudent, 1);
+    //students.splice(indexOfStudent, 1);
+    console.log(nonExpelledStudents);
+    console.log(students); 
 
-      renderSort(nonExpelledStudents) ; 
+    renderSort(nonExpelledStudents); 
+  }
+});
+
+armyContainer.addEventListener("click", (event) => {
+  if (event.target.id.includes("rehouse")) {
+    console.log("rehouse")
   }
 });
