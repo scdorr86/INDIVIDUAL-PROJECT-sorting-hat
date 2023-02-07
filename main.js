@@ -93,6 +93,8 @@ function addRender () {
     }
   }
 
+  nonExpelledStudents.map(index => index.studentId).sort((a,b) => a - b);
+
   renderSort(nonExpelledStudents);
   
   console.log(nonExpelledStudents)
